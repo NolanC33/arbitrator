@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
-
-	private Scanner s = new Scanner(System.in);
 	
 	
 	public static void main(String[] args) {
@@ -29,27 +27,7 @@ public class Driver {
 
 		System.out.print(a.toString());
 
-	}
-	
-	private String[] readList() {
-		
-		System.out.println("Input list (or enter to terminate):");
-				
-		String theLine = s.nextLine();
-		
-		if (theLine.equals("")) {
-			return null;
-		}
-		
-		return theLine.split(" ");
-		
-		
-		
-	}
-	
-	
-	
-	
+	}	
 	
 
 
