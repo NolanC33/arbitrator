@@ -6,14 +6,16 @@ import java.util.Set;
 
 public class Arbitrator {
 	
-	private final int numCountries = 7;
+	private int maxCount = 7;
 	
 	private Hashtable<String, Integer> countryToRank;
 	
 	Hashtable<Integer, ArrayList<String>> rankToCountry;
 	
-	public Arbitrator(ArrayList<String[]> lists) {
+	public Arbitrator(ArrayList<String[]> lists, int maxCount) {
+		
 		countryToRank = new Hashtable<String, Integer>();
+		this.maxCount = maxCount;
 		
 		this.arbitrate(lists);
 	}
@@ -21,7 +23,7 @@ public class Arbitrator {
 	private void arbitrate(ArrayList<String[]> lists) {
 		
 		for (String[] particularList : lists) {
-			updateScores(particularList);
+			parseList(particularList);
 		}
 		
 		this.invertCountryToRank();
@@ -55,29 +57,28 @@ public class Arbitrator {
 		
 	}
 	
-	private void updateScores(String[] particularList) {
+	private void parseList(String[] particularList) {
+				
+		for (int i = 0; (i < particularList.length) && (i < maxCount); i++)
+			updateScore(particularList[i], i);
 		
-		String particularCountry;
+	}
+	
+	private void updateScore(String particularCountry, int positionInList) {
 		
-		for (int i = 0; (i < particularList.length) && (i < numCountries); i++) {
-
-			particularCountry = particularList[i];
+		int amountToAdd = maxCount - positionInList;
+		
+		if (countryToRank.containsKey(particularCountry)) {
 			
-			int amountToAdd = numCountries - i;
+			int oldRank = countryToRank.get(particularCountry);	
 			
-			if (countryToRank.containsKey(particularCountry)) {
-				
-				int oldRank = countryToRank.get(particularCountry);	
-				
-				countryToRank.put(particularCountry, oldRank + amountToAdd);
-				
-			} else {
-				
-				countryToRank.put(particularCountry, amountToAdd);
-				
-			}
+			countryToRank.put(particularCountry, oldRank + amountToAdd);
+			
+		} else {
+			
+			countryToRank.put(particularCountry, amountToAdd);
+			
 		}
-		
 	}
 	
 	@Override

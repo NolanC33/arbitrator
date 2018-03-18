@@ -31,7 +31,9 @@ public class Driver {
 			ir.deconstruct();
 		}
 		
-		Arbitrator a = new Arbitrator(listChoices);
+		int numCountries = 7;
+		
+		Arbitrator a = new Arbitrator(listChoices, numCountries);
 
 		System.out.print(a.toString());
 
