@@ -1,7 +1,6 @@
 package arbitrator;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Driver {
 	
@@ -13,22 +12,25 @@ public class Driver {
 		
 		String[] choices;
 		
-		Driver d = new Driver();
+		InputReader ir = new InputReader();
 		
-		choices = d.readList();
-		
-		while (choices != null) {
-			listChoices.add(choices);
-			choices = d.readList();
+		try {
+			while (true) {
+				choices = ir.readLineAsArray("Input list (Input nothing to cancel)");
+				listChoices.add(choices);
+			}
+		} catch (InputReaderDeconstructedException e) {
+			ir.deconstruct();
+		} catch (InputEmptyException e) {
+			ir.deconstruct();
 		}
 		
 		Arbitrator a = new Arbitrator(listChoices);
-		
 
 		System.out.print(a.toString());
 
 	}	
-	
+		
 
 
 }

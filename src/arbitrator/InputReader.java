@@ -14,7 +14,7 @@ public class InputReader {
 	}
 	
 	
-	public String[] readLineAsArray(String messageToDisplay) throws InputReaderDeconstructedException {
+	public String[] readLineAsArray(String messageToDisplay) throws InputReaderDeconstructedException, InputEmptyException {
 		
 		if (scannerClosed) {
 			throw new InputReaderDeconstructedException();
@@ -25,7 +25,7 @@ public class InputReader {
 		String theLine = s.nextLine();
 		
 		if (theLine.equals("")) {
-			return null;
+			throw new InputEmptyException();
 		}
 		
 		return theLine.split(" ");
