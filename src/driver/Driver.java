@@ -22,7 +22,7 @@ public class Driver {
 		
 		try {
 			while (true) {
-				choices = ir.readLineAsArray("Input list (Input nothing to cancel)");
+				choices = ir.readLineAsArray("Input prefList (Input nothing to finish inputting of prefLists)");
 				listChoices.add(choices);
 			}
 		} catch (InputReaderDeconstructedException e) {
