@@ -1,6 +1,10 @@
-package arbitrator;
+package utilities;
+
 
 import java.util.Scanner;
+
+import exceptions.InputEmptyException;
+import exceptions.InputReaderDeconstructedException;
 
 public class InputReader {
 	

@@ -1,4 +1,4 @@
-package arbitrator;
+package utilities;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

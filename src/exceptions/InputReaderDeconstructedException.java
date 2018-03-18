@@ -1,4 +1,5 @@
-package arbitrator;
+package exceptions;
+
 
 public class InputReaderDeconstructedException extends Exception {
 	
