@@ -16,9 +16,9 @@ public class Driver {
 		
 		ArrayList<String[]> listChoices = Driver.readLists();
 		
-		int numCountries = 7;
+		int maxLengthOfOutputList = 7;
 		
-		Arbitrator a = new Arbitrator(listChoices, numCountries);
+		Arbitrator a = new Arbitrator(listChoices, maxLengthOfOutputList);
 
 		System.out.print(a.toString());
 

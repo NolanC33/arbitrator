@@ -6,15 +6,15 @@ import java.util.Set;
 
 public class Arbitrator {
 	
-	private int maxCount = 7;
+	private int maxCount;
 	
-	private Hashtable<String, Integer> countryToRank;
+	private Hashtable<String, Integer> itemToRank;
 	
-	Hashtable<Integer, ArrayList<String>> rankToCountry;
+	Hashtable<Integer, ArrayList<String>> rankToItem;
 	
 	public Arbitrator(ArrayList<String[]> lists, int maxCount) {
 		
-		countryToRank = new Hashtable<String, Integer>();
+		itemToRank = new Hashtable<String, Integer>();
 		this.maxCount = maxCount;
 		
 		this.arbitrate(lists);
@@ -22,9 +22,8 @@ public class Arbitrator {
 	
 	private void arbitrate(ArrayList<String[]> lists) {
 		
-		for (String[] particularList : lists) {
+		for (String[] particularList : lists)
 			parseList(particularList);
-		}
 		
 		this.invertCountryToRank();
 		
@@ -33,27 +32,31 @@ public class Arbitrator {
 	
 	private void invertCountryToRank() {
 		
-		this.rankToCountry = new Hashtable<Integer, ArrayList<String>>();
+		this.rankToItem = new Hashtable<Integer, ArrayList<String>>();
 		
-		for (String country : countryToRank.keySet()) {
+		for (String item : itemToRank.keySet())
+			updateRankToItem(item);
+		
+		
+	}
+	
+	private void updateRankToItem(String item) {
+		
+		Integer rank = itemToRank.get(item);
+		
+		if (this.rankToItem.containsKey(rank)) {
 			
-			Integer rank = countryToRank.get(country);
+			ArrayList<String> countriesOfTheParticularRank = this.rankToItem.get(rank);
+			countriesOfTheParticularRank.add(item);
+			this.rankToItem.put(rank, countriesOfTheParticularRank);
 			
-			if (this.rankToCountry.containsKey(rank)) {
-				ArrayList<String> countriesOfTheParticularRank = this.rankToCountry.get(rank);
-				countriesOfTheParticularRank.add(country);
-				this.rankToCountry.put(rank, countriesOfTheParticularRank);
-				
-			} else {
-				
-				ArrayList<String> newList = new ArrayList<String>();
-				newList.add(country);
-				this.rankToCountry.put(rank,  newList);
-				
-			}
+		} else {
+			
+			ArrayList<String> newList = new ArrayList<String>();
+			newList.add(item);
+			this.rankToItem.put(rank,  newList);
 			
 		}
-		
 		
 	}
 	
@@ -68,15 +71,15 @@ public class Arbitrator {
 		
 		int amountToAdd = maxCount - positionInList;
 		
-		if (countryToRank.containsKey(particularCountry)) {
+		if (itemToRank.containsKey(particularCountry)) {
 			
-			int oldRank = countryToRank.get(particularCountry);	
+			int oldRank = itemToRank.get(particularCountry);	
 			
-			countryToRank.put(particularCountry, oldRank + amountToAdd);
+			itemToRank.put(particularCountry, oldRank + amountToAdd);
 			
 		} else {
 			
-			countryToRank.put(particularCountry, amountToAdd);
+			itemToRank.put(particularCountry, amountToAdd);
 			
 		}
 	}
@@ -86,22 +89,20 @@ public class Arbitrator {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		
-		Set<Integer> keys = rankToCountry.keySet();
-		
+		Set<Integer> keys = rankToItem.keySet();
 		
 		ArrayList<Integer> keysList = new ArrayList<Integer>(keys);
-		
 		
 		java.util.Collections.sort(keysList);
 		
 		for (int i = keysList.size() - 1; i >= 0; i--) {
+			
 			Integer index = keysList.get(i);
 			
 			sb.append(index);
 			sb.append(": ");
 			
-			sb.append(this.rankToCountry.get(index));
+			sb.append(this.rankToItem.get(index));
 			
 			sb.append('\n');
 			
