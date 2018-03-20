@@ -14,6 +14,18 @@ public class Driver {
 	public static void main(String[] args) {
 		
 		
+		ArrayList<String[]> listChoices = Driver.readLists();
+		
+		int numCountries = 7;
+		
+		Arbitrator a = new Arbitrator(listChoices, numCountries);
+
+		System.out.print(a.toString());
+
+	}	
+	
+	private static ArrayList<String[]> readLists() {
+		
 		ArrayList<String[]> listChoices = new ArrayList<String[]>();
 		
 		String[] choices;
@@ -31,13 +43,8 @@ public class Driver {
 			ir.deconstruct();
 		}
 		
-		int numCountries = 7;
-		
-		Arbitrator a = new Arbitrator(listChoices, numCountries);
-
-		System.out.print(a.toString());
-
-	}	
+		return listChoices;
+	}
 		
 
 
