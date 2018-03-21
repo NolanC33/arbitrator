@@ -1,3 +1,3 @@
 # arbitrator
 
-See the wiki!!
+See the [wiki](https://github.com/NolanC33/arbitrator/wiki)!!
